@@ -1,15 +1,14 @@
 #!/bin/bash
 
 if [[ $# -eq 0 ]]; then
-  echo "  $0 <subj> "
+  echo "  $0 <subj> <outputBaseDir>"
   exit 1
 fi
 
 subj=$1
+outputBaseDir=$2
 
 binDir=`dirname $0`
-
-outputBaseDir=/data/grossman/pcook/antsVsGreedyJLF/GreedyRegGreedyJLF
 
 mkdir -p ${outputBaseDir}/$subj
 

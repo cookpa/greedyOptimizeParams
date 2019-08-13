@@ -107,7 +107,7 @@ foreach my $subject (@subjects) {
 	    
 	    my $rigidTransform = "${tmpDir}/${subject}To${subjToLabel}Rigid.mat";
 	    
-	    my $regRigidCmd = "$greedyBase -a -dof 6 -ia $comTransform -o $rigidTransform -i $fixed $moving -m NCC 4x4x4 -n 100x50x50x10 -gm $regMask";
+	    my $regRigidCmd = "$greedyBase -a -dof 6 -ia $comTransform -o $rigidTransform -i $fixed $moving -m NCC 4x4x4 -n 20x50x50x0 -gm $regMask";
 	    
 	    print "\n--- Reg Rigid Call ---\n$regRigidCmd\n---\n";
 	    
@@ -115,7 +115,7 @@ foreach my $subject (@subjects) {
 	    
 	    my $affineTransform = "${tmpDir}/${subject}To${subjToLabel}Affine.mat";
 	    
-	    my $regAffineCmd = "$greedyBase -a -dof 12 -ia $rigidTransform -o $affineTransform -i $fixed $moving -m NCC 4x4x4 -n 100x50x50x10 -gm $regMask";
+	    my $regAffineCmd = "$greedyBase -a -dof 12 -ia $rigidTransform -o $affineTransform -i $fixed $moving -m NCC 4x4x4 -n 20x50x50x20 -gm $regMask";
 	    
 	    print "\n--- Reg Affine Call ---\n$regAffineCmd\n---\n";
 	    
@@ -123,13 +123,13 @@ foreach my $subject (@subjects) {
 	    
 	    my $deformableTransform = "${tmpDir}/${subject}To${subjToLabel}Warp.nii.gz";
 	    
-	    my $regDeformableCmd = "$greedyBase -it $affineTransform -o $deformableTransform -i $fixed $moving -m NCC 4x4x4 -n 100x70x50x20 -e 1.0 -wp 0 -gm $regMask";
+	    my $regDeformableCmd = "$greedyBase -it $affineTransform -o $deformableTransform -i $fixed $moving -m NCC 4x4x4 -n 20x40x80x20 -e 1.0 -wp 0 -gm $regMask";
 
 	    print "\n--- Reg Deformable Call ---\n$regDeformableCmd\n---\n";
 	    
 	    system("$regDeformableCmd");
 	    
-	    my $applyTransCmd = "$greedyBase -float -rf $fixed -ri LINEAR -rm $moving $movingDeformed -ri LABEL 0.2vox -rm $movingSeg $movingSegDeformed -r $deformableTransform $affineTransform";
+	    my $applyTransCmd = "$greedyBase -float -rf $fixed -ri LINEAR -rm $moving $movingDeformed -ri LABEL 0.01mm -rm $movingSeg $movingSegDeformed -r $deformableTransform $affineTransform";
 	    
 	    print "\n--- Apply transforms Call ---\n$applyTransCmd\n---\n";
 	    
