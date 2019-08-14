@@ -115,7 +115,7 @@ foreach my $subject (@subjects) {
 	    
 	    my $affineTransform = "${tmpDir}/${subject}To${subjToLabel}Affine.mat";
 	    
-	    my $regAffineCmd = "$greedyBase -a -dof 12 -ia $rigidTransform -o $affineTransform -i $fixed $moving -m NCC 4x4x4 -n 20x50x50x20 -gm $regMask";
+	    my $regAffineCmd = "$greedyBase -a -dof 12 -ia $rigidTransform -o $affineTransform -i $fixed $moving -m NMI -n 20x50x50x20 -gm $regMask";
 	    
 	    print "\n--- Reg Affine Call ---\n$regAffineCmd\n---\n";
 	    

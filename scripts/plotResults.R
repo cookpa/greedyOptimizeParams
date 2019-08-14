@@ -74,5 +74,5 @@ plotMethods(antsVsGreedy$barPlotData[dfBarsSubCorticalIndices,])
 plotMethods(antsVsGreedy$barPlotData[dfBarsCorticalIndices,])
 
 greedyCompareParams = compareMethods(greedyRegGreedyJLFDice, "Greedy", greedyExperimentalDice, "GreedyExp")
+plotMethods(greedyCompareParams$barPlotData[dfBarsSubCorticalIndices,])
 plotMethods(greedyCompareParams$barPlotData[dfBarsCorticalIndices,])
-
